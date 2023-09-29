@@ -1,0 +1,18 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+    <h1>Админ панель</h1>
+    <!-- Welcome text -->
+    <section>
+        <h2>Текущие статьи</h2>
+        <ul>
+            {% for article in articles %}
+                <li>
+                    <span>{{ article.name }}</span>
+                    <a href="/article/edit/{{ article.id }}">Редактировать</a>
+                    <a href="/article/{{ article.id }}">Посмотреть</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}

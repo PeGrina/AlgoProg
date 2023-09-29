@@ -1,0 +1,30 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+    <h1>Редактирование статьи</h1>
+    <!-- Welcome text -->
+    <section>
+        <form method="POST">
+            <label class="form-label">Название статьи</label>
+            <div class="input-group">
+                <input class="form-control" name="article_name" type="text" placeholder="Название статьи" value="{{ article.name }}">
+            </div><br><br>
+
+            <label class="form-label">Текст статьи</label>
+            <div class="input-group">
+                <textarea rows="10" name="article_text" class="form-control" aria-label="With textarea">{{ article.article_text }}</textarea>
+            </div> <br><br>
+
+            <label class="form-label">Авторы статьи</label>
+            <div class="input-group">
+                <input class="form-control" name="article_author" type="text" placeholder="Авторы статьи" value="{{ article.authors }}">
+            </div><br><br>
+
+            <label class="form-label">Сделать статью публичной?</label>
+            <div class="input-group">
+                <input name="article_show" class="form-check-input mt-0" type="checkbox" {% if article.show == "1" %} checked {% endif %}  value="1">
+            </div><br><br>
+            <input class="form-control" type="submit">
+        </form>
+    </section>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+    <h1>Вход в систему</h1>
+    <!-- Welcome text -->
+    <section>
+        <form method="POST">
+            {% if error %}
+                <div class="input-group">
+                    <p class="text-danger">{{ error }}</p>
+                </div>
+            {% endif %}
+            <label class="form-label">Логин</label>
+            <div class="input-group">
+                <input class="form-control" name="login" type="text" value="{{ article.name }}">
+            </div><br><br>
+
+            <label class="form-label">Пароль</label>
+            <div class="input-group">
+                <input class="form-control" name="password" type="password" value="{{ article.authors }}">
+            </div><br><br>
+
+            <input class="form-control" type="submit">
+        </form>
+    </section>
+{% endblock %}
