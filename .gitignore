@@ -2,6 +2,7 @@
 .git
 .idea
 node_modules
+db.sqlite
 public/images/*
 db/db.sqlite
 package-lock.json

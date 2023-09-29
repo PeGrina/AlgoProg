@@ -6,5 +6,41 @@
   <section>
     Добро пожаловать на сборник конспектов {{ title }}!
     Здесь будут публиковаться разного рода конспекты по Алгоритмам и Структурам данных
+    <ul id="article0">
+
+    </ul>
+    <script>
+      const articles = [
+        {% for article in articles %}
+          {% if article.show == "1" %}
+            { id: {{ article.id }}, name: "{{ article.name }}", subarticles: "{{ article.subarticles }}"}
+          {% else %}
+            { id: {{ article.id }}, name: "", subarticles: "" }
+          {% endif %},
+        {% endfor %}
+      ];
+      const len = articles.length;
+      let used = Array(len + 1).fill(0);
+      const dfs = (u, p, lvl) => {
+        if (used[u])
+          return;
+        used[u] = 1;
+        a = articles[u - 1];
+        $('<li><h' + lvl + '><a href="/article/' + a.id + '">' + a.name + '</a></h' + lvl + '></li>').appendTo('#article' + p);
+        let e = a.subarticles.split(',');
+        if (e.length > 0 && e[0] !== '') {
+          $('<ul id="article' + u + '"></ul>').appendTo('#article' + p);
+          for (let v of e) {
+            v = parseInt(v);
+            dfs(v, u, lvl + 1);
+          }
+        }
+      }
+      for (let i = 1; i <= len; ++i) {
+        if (articles[i - 1].name !== "") {
+          dfs(i, 0, 1);
+        }
+      }
+    </script>
   </section>
 {% endblock %}

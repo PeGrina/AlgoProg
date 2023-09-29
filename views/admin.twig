@@ -5,7 +5,7 @@
     <!-- Welcome text -->
     <section>
         <h2>Текущие статьи</h2>
-        <ul>
+        <ol>
             {% for article in articles %}
                 <li>
                     <span>{{ article.name }}</span>
@@ -13,6 +13,6 @@
                     <a href="/article/{{ article.id }}">Посмотреть</a>
                 </li>
             {% endfor %}
-        </ul>
+        </ol>
     </section>
 {% endblock %}

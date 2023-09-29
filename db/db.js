@@ -39,7 +39,8 @@ const db = new sqlite3.Database('db.sqlite', (err) => {
             article_text text, 
             authors text,
             show text,
-            date text
+            date text,
+            subarticles text
         )`, (err) => {});
     }
 });

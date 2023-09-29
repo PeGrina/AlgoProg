@@ -45,8 +45,34 @@ app.use((req, res, next) => {
     next()
 });
 
-app.get('/', function(req, res, next) {
-  res.render('index', { title: process.env["NAME"], nav_list: req.nav_list });
+const get_topsort = list => {
+    const len = list.length;
+    let result = [];
+    let used = Array(len).fill(0);
+    const dfs = u => {
+        if (used[u.id - 1])
+            return;
+        result.push(u);
+        used[u.id - 1] = 1;
+        let e = u.subarticles.split(',');
+        u.col = e.length;
+        for (let v of e) {
+            v = parseInt(v);
+            dfs(list[v - 1]);
+        }
+    }
+    return result;
+}
+
+app.get('/', function(req, res) {
+    let sql = 'SELECT * FROM articles';
+    db.all(sql, [], (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        console.log(result);
+        res.render('index', { title: process.env["NAME"], nav_list: req.nav_list, articles: result });
+    });
 });
 
 app.get('/article/create', (req, res) => {
@@ -77,12 +103,16 @@ app.get('/article/edit/:id', (req, res) => {
 });
 
 app.post('/article/edit/:id', (req, res) => {
+    if (!logged(req.cookies)) {
+        res.redirect('/article/' + req.params["id"]);
+        return;
+    }
     console.log(req.body.article_show);
     let show = "0";
     if (req.body.article_show !== undefined)
         show = "1";
-    let params = [req.body.article_name, req.body.article_text, req.body.article_author, show, req.params["id"]];
-    let sql = 'UPDATE articles SET name = ?, article_text = ?, authors = ?, show = ? WHERE id = ?';
+    let params = [req.body.article_name, req.body.article_text, req.body.article_author, show, req.body.article_subarticles, req.params["id"]];
+    let sql = 'UPDATE articles SET name = ?, article_text = ?, authors = ?, show = ?, subarticles = ? WHERE id = ?';
     db.run(sql, params, (err, row) => {
         if (err) {
             console.log(err);
