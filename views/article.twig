@@ -2,6 +2,22 @@
 
 {% block body %}
     <h1>{{ article.name }}</h1>
+    {% if article.authors != "" %}
+    <hr>
+        <div class="container">
+            <div class="row">
+                <div class="col text-secondary small">
+                    Авторы
+                </div>
+            </div>
+            <div class="row">
+                <div class="col small">
+                    {{article.authors}}
+                </div>
+            </div>
+        </div>
+    <hr>
+    {% endif %}
     <!-- Welcome text -->
     <section>
         {{ article.article_text }}

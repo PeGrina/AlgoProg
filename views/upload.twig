@@ -1,0 +1,19 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+    <h1>Выкладывание файла в общий доступ</h1>
+    <!-- Welcome text -->
+    <section>
+        <form method="POST" enctype="multipart/form-data">
+            <div class="input-group">
+                <p class="text-secondary">Все выложенные файлы будут находится по адресу /files/<Название файла></p>
+            </div>
+            <label class="form-label">Файл</label>
+            <div class="input-group">
+                <input class="form-control" name="file" type="file">
+            </div><br><br>
+
+            <input class="form-control" type="submit">
+        </form>
+    </section>
+{% endblock %}
